@@ -8,7 +8,7 @@ A **GROQ-powered** AI chatbot built with Python and Streamlit that provides low-
 
 Try the deployed application here:
 
-👉 **Streamlit App:** https://ragchatbotproject-9xnfqun5iyhsmzynanzrij.streamlit.app/
+👉 **Streamlit App:** https://tojigroqchatbot-buhmrwrxpkdfzevrbtolde.streamlit.app/
 
 ---
 
