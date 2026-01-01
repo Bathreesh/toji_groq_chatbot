@@ -1,11 +1,19 @@
 import streamlit as st
 from langchain_groq import ChatGroq
-from langchain_classic.chains import ConversationChain
-from langchain_classic.memory import ConversationBufferMemory
+from langchain.chains import ConversationChain
+from langchain.memory import ConversationBufferMemory
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+# Load Groq API key with fallback
+GROQ_API_KEY = st.secrets.get("GROQ_API_KEY")
+if GROQ_API_KEY is None:
+    load_dotenv()
+    GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
+if not GROQ_API_KEY:
+    st.error("❌ GROQ_API_KEY not found. Set it in Streamlit secrets or .env file.")
+    st.stop()
 
 st.set_page_config(
     page_title="Toji • AI Chat",
@@ -46,7 +54,7 @@ CUSTOM_CSS = """
     color: #9ca3af;
     font-size: 0.92rem;
     margin-top: 0.15rem;
-    margin-bottom: 0.15rem;  /* change to 0 if you want no gap */
+    margin-bottom: 0.15rem;
 }
 
 /* Chat container */
@@ -135,7 +143,7 @@ if "messages" not in st.session_state:
 
 if "conversation" not in st.session_state:
     llm = ChatGroq(
-        groq_api_key=os.getenv("GROQ_API_KEY"),
+        groq_api_key=GROQ_API_KEY,
         model_name="llama-3.1-8b-instant",
         temperature=0.4,
     )
@@ -191,7 +199,8 @@ if user_input:
             unsafe_allow_html=True,
         )
 
-    response = st.session_state.conversation.predict(input=user_input)
+    with st.spinner("Toji is thinking..."):
+        response = st.session_state.conversation.predict(input=user_input)
 
     st.session_state.messages.append({"role": "assistant", "content": response})
 
