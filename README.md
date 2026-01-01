@@ -105,9 +105,5 @@ Contributions are welcome! To contribute:
 
 Good practices such as clear code structure, type hints, and concise documentation are appreciated.
 
----
 
-## 📄 License
-
-Specify the license under which this project is distributed (for example, MIT License) and include a corresponding `LICENSE` file in the repository. Update this section once a license is chosen.
 
